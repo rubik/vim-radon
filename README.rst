@@ -4,6 +4,12 @@ This script borrows heavily from Gary Bernhardt's Vim plugin **pycomplexity**,
 but the Python code that takes care of the analysis has been rewritten to use
 `Radon <https://github.com/rubik/radon>`_.
 
+.. image:: https://cloud.githubusercontent.com/assets/238549/4182865/e4dfe7fc-3734-11e4-8132-1f1412a5e434.png
+   :alt: Cyclomatic complexity of some PyLint code
+   :align: center
+
+The cyclomatic complexity of some PyLint code.
+
 ----
 
 **Table of Contents**
