@@ -1,8 +1,8 @@
-" complexity.vim
-" Gary Bernhardt (http://blog.extracheese.org)
+" radon.vim
+" Michele Lacchia
 "
-" This will add cyclomatic complexity annotations to your source code. It is
-" no longer wrong (as previous versions were!)
+" This will add cyclomatic complexity annotations to your source code. Under
+" the hood it uses Radon (https://github.com/rubik/radon) code.
 
 if !has('signs')
     finish
@@ -11,7 +11,7 @@ if !has('python')
     finish
 endif
 
-if exists("g:loaded_complexity") || &cp
+if exists("g:loaded_radon") || &cp
   finish
 endif
 
@@ -19,12 +19,12 @@ function! s:ClearSigns()
    sign unplace *
 endfunction
 
-function! s:ToggleComplexity()
-    if exists("g:complexity_is_displaying") && g:complexity_is_displaying
+function! s:ToggleRadon()
+    if exists("g:radon_is_displaying") && g:radon_is_displaying
         call s:ClearSigns()
-        let g:complexity_is_displaying = 0
+        let g:radon_is_displaying = 0
     else
-        call s:ShowComplexity()
+        call s:ShowRadon()
     endif
 endfunction
 
@@ -133,7 +133,7 @@ def complexity_name(complexity):
         return 'low_complexity'
 
 
-def show_complexity():
+def show_radon():
     current_file = vim.current.buffer.name
     try:
         blocks = visit(current_file)
@@ -209,11 +209,11 @@ def update_line_markers(line_changes):
                     (line, line, complexity, filename))
 endpython
 
-function! s:ShowComplexity()
+function! s:ShowRadon()
     python << END
-show_complexity()
+show_radon()
 END
-    let g:complexity_is_displaying = 1
+    let g:radon_is_displaying = 1
     " no idea why it is needed to update colors each time
     " to actually see the colors
     hi low_complexity guifg=#004400 guibg=#004400 ctermfg=2 ctermbg=2
@@ -229,9 +229,9 @@ sign define low_complexity text=XX texthl=low_complexity
 sign define medium_complexity text=XX texthl=medium_complexity
 sign define high_complexity text=XX texthl=high_complexity
 
-if exists("g:complexity_always_on") && g:complexity_always_on
-    autocmd! BufReadPost,BufWritePost,FileReadPost,FileWritePost *.py call s:ShowComplexity()
-    call s:ShowComplexity()
+if exists("g:radon_always_on") && g:radon_always_on
+    autocmd! BufReadPost,BufWritePost,FileReadPost,FileWritePost *.py call s:ShowRadon()
+    call s:ShowRadon()
 endif
 
-command! Complexity  call s:ToggleComplexity()
+command! Radon  call s:ToggleRadon()
