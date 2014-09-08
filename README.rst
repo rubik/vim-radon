@@ -65,22 +65,17 @@ From a zip file
 
 You can update the plugin using the same steps.
 
+Commands
+--------
+
+Currently there is only one command, `Radon`, that will toggle the signs
+showing/hiding the complexity results.
+
 Configuration variables
 -----------------------
 
-This is the full list of configuration variables available, with example
-settings and default values. Use these in your vimrc to control the default
-behavior.
+**radon_always_on**
 
-Indenting
-+++++++++
-
-**dg_indent_keep_current**
-
-By default, the indent function matches the indent of the previous line if it
-doesn't find a reason to indent or outdent. To change this behavior so it
-instead keeps the current indent of the cursor, use
-
-    let dg_indent_keep_current = 1
-
-*Default*: ``unlet dg_indent_keep_current``
+By default, the code will not be analyzed until that behavior is toggled with
+the `Radon` command. If this option is set to a truthy value, the code will be
+always analyzed (when a file is read or saved).
