@@ -186,7 +186,7 @@ def list_current_signs(current_file):
 
 def compute_line_changes(cached_complexities, new_blocks):
     changes = {}
-    for line, complexity in new_blocks.iteritems():
+    for line, complexity in new_blocks.items():
         if complexity != cached_complexities.get(line, None):
             changes[line] = complexity
 
@@ -203,7 +203,7 @@ def compute_new_complexities(blocks):
 
 def update_line_markers(line_changes):
     filename = vim.current.buffer.name
-    for line, complexity in line_changes.iteritems():
+    for line, complexity in line_changes.items():
         vim.command(':sign unplace %i' % line)
         vim.command(':sign place %i line=%i name=%s file=%s' %
                     (line, line, complexity, filename))
